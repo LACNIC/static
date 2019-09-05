@@ -50,7 +50,7 @@ define(function () {
         charts.updateChart(divId, 20);
 
 
-        var params = decodeURIComponent($.param({
+        let params_dict = {
             'x': JSON.stringify(x),
             'y': JSON.stringify(y),
             'ys': JSON.stringify(ys),
@@ -62,16 +62,20 @@ define(function () {
             'colors': JSON.stringify(colors),
             'stacked': JSON.stringify(stacked),
             'my_options': JSON.stringify(my_options)
-        }));
+        };
 
         charts.updateChart(divId, 30);
 
-        var service = '/code';
+        var service = '/code/';
         if(kind === 'Histogram')
-            service = '/hist/code';
+            service = '/hist/code/';
 
         const code = await fetch(
-            this.endpoint + service + '/?' + params
+            this.endpoint + service,  //  + '/?' + params,
+            {
+                method: 'POST',
+                body: JSON.stringify(params_dict)
+            }
         ).then(
             code => code.text()
         );
