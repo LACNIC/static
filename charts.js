@@ -7,7 +7,7 @@ define(function () {
 
     var charts = {};
 
-    charts.debug = false;
+    charts.debug = document.URL.indexOf('localhost') > 0;
 
     charts.endpoint = charts.debug && 'http://127.0.0.1:8001' || 'https://charts.dev.lacnic.net';
 
