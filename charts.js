@@ -66,19 +66,17 @@ define(function () {
 
         charts.updateChart(divId, 30);
 
-        script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.async = true;
-        script.onload = function () {
-            // remote script has loaded
-        };
-
         var service = '/code';
         if(kind === 'Histogram')
             service = '/hist/code';
 
-        script.src = this.endpoint + service + '?' + params;
-        document.getElementsByTagName('head')[0].appendChild(script);
+        const code = await fetch(
+            this.endpoint + service + '/?' + params
+        ).then(
+            code => code.text()
+        );
+
+        eval(code);  // remote script execution!
 
         charts.updateChart(divId, 75);
     };
